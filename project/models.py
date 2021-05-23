@@ -13,18 +13,22 @@ class ProjectImage(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=255, blank=True, null=True)
     project = models.ForeignKey(Project, on_delete=models.PROTECT,
-                                related_name='project_images')
+                                related_name='images')
     image = models.ImageField(upload_to='project-images')
     created_at = models.DateTimeField(auto_now_add=True)
     featured = models.BooleanField(default=False)
 
 
 class ProjectDescription(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,
+                                related_name='descriptions')
     title = models.CharField(max_length=50)
     info = models.CharField(max_length=10000)
+    order = models.PositiveSmallIntegerField(unique=True)
 
 
 class ProjectTag(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,
+                                related_name='tags')
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=255)

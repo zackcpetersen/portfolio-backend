@@ -8,8 +8,8 @@ from project.models import Project, ProjectDescription, ProjectImage, ProjectTag
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
-    authentication_classes = [SessionAuthentication, TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [SessionAuthentication, TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
