@@ -28,7 +28,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ['user', 'source', 'live_url', 'images', 'descriptions', 'tags']
+        fields = ['id', 'user', 'source', 'live_url', 'images', 'descriptions', 'tags']
 
     # def get_images(self, project):
     #     return project.images.values_list('image', flat=True)
