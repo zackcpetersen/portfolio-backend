@@ -7,7 +7,7 @@ from project.api.serializers import ProjectSerializer, ProjectDescriptionSeriali
 from project.models import Project, ProjectDescription, ProjectImage, ProjectTag
 
 
-class ProjectViewSet(viewsets.ModelViewSet):
+class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     # authentication_classes = [SessionAuthentication, TokenAuthentication]
     # permission_classes = [IsAuthenticated]
 
@@ -15,7 +15,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
 
 
-class ProjectDescriptionViewSet(viewsets.ModelViewSet):
+# TODO can remove all below - all the info that's needed comes from project serializer
+class ProjectDescriptionViewSet(viewsets.ReadOnlyModelViewSet):
     authentication_classes = [SessionAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -23,7 +24,7 @@ class ProjectDescriptionViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectDescriptionSerializer
 
 
-class ProjectImageViewSet(viewsets.ModelViewSet):
+class ProjectImageViewSet(viewsets.ReadOnlyModelViewSet):
     authentication_classes = [SessionAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -31,7 +32,7 @@ class ProjectImageViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectImageSerializer
 
 
-class ProjectTagViewSet(viewsets.ModelViewSet):
+class ProjectTagViewSet(viewsets.ReadOnlyModelViewSet):
     authentication_classes = [SessionAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 

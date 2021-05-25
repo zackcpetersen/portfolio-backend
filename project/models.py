@@ -5,6 +5,7 @@ from accounts.models import User
 
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
+    name = models.CharField(max_length=255)
     source = models.URLField(blank=True, null=True)
     live_url = models.URLField(blank=True, null=True)
 
