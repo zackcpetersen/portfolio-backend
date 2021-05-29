@@ -10,7 +10,7 @@ class SocialLinkSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    social_links = SocialLinkSerializer
+    social_links = SocialLinkSerializer(read_only=True, many=True)
 
     class Meta:
         model = User

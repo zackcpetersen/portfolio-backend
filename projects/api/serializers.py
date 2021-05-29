@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from project.models import Project, ProjectDescription, ProjectImage, ProjectTag
+from projects.models import Project, ProjectDescription, ProjectImage, ProjectTag
 
 
 class ProjectDescriptionSerializer(serializers.ModelSerializer):

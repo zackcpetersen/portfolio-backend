@@ -20,7 +20,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 from accounts.api.urls import router as accounts_router
-from project.api.urls import router as projects_router
+from projects.api.urls import router as projects_router
 
 router = routers.DefaultRouter()
 router.registry.extend(accounts_router.registry)
