@@ -16,6 +16,9 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
+    def create_superuser(self, **kwargs):
+        return self.create_user(**kwargs)
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
@@ -41,6 +44,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class SocialLink(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name='social_links')
+    name = models.CharField(max_length=255)
     link = models.URLField()
-    icon = models.URLField()
+    icon = models.CharField(max_length=255)

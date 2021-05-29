@@ -4,4 +4,4 @@ from accounts.api import viewsets as account_views
 
 router = routers.DefaultRouter()
 
-router.register(r'social-links', account_views.SocialLinkViewSet)
+router.register(r'users', account_views.UserViewSet)
