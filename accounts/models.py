@@ -43,6 +43,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         return '{} {}'.format(self.first_name, self.last_name)
 
 
+class ContactRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.first())
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    message = models.CharField(max_length=10000)
+
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.email)
+
+
 class SocialLink(models.Model):
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE,
@@ -50,3 +61,6 @@ class SocialLink(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField()
     icon = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name

@@ -1,7 +1,12 @@
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 
-from accounts.api.serializers import UserSerializer
-from accounts.models import User
+from accounts.api.serializers import ContactRequestSerializer, UserSerializer
+from accounts.models import ContactRequest, User
+
+
+class ContactRequestViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    queryset = ContactRequest.objects.all()
+    serializer_class = ContactRequestSerializer
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):

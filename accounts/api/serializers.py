@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from accounts.models import SocialLink, User
+from accounts.models import ContactRequest, SocialLink, User
+
+
+class ContactRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactRequest
+        exclude = ['id', 'user']
 
 
 class SocialLinkSerializer(serializers.ModelSerializer):
