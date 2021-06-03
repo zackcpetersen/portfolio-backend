@@ -47,7 +47,7 @@ class ContactRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.first())
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=15)
     message = models.CharField(max_length=10000)
 
     def __str__(self):
