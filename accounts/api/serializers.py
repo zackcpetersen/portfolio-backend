@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from accounts.models import SocialLink, User
+from accounts.models import ContactRequest, SocialLink, User
 
 
 class SocialLinkSerializer(serializers.ModelSerializer):
@@ -16,3 +16,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         exclude = ['password', 'is_active', 'is_staff', 'last_login',
                    'is_superuser', 'groups', 'user_permissions']
+
+
+class ContactRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactRequest
+        exclude = ['id', 'user']
