@@ -32,7 +32,7 @@ class ProjectDescription(models.Model):
     order = models.PositiveSmallIntegerField(unique=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.project, self.info[:50])
+        return '{} - {}'.format(self.project, self.info[:75])
 
 
 class Tag(models.Model):
@@ -46,7 +46,6 @@ class ProjectTag(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
                                 related_name='tags')
     tag = models.ForeignKey(Tag, on_delete=models.PROTECT)
-    # name = models.CharField(max_length=50)
     description = models.CharField(max_length=255)
 
     def __str__(self):
