@@ -21,12 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qu%td#7vb6&_cz3mesy(xzf3dlp7(_ucavlx5pdqucm9=dsj4m'
+if 'DJANGO_SECRET_KEY' in os.environ:
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+else:
+    SECRET_KEY = 'django-insecure-qu%td#7vb6&_cz3mesy(xzf3dlp7(_ucavlx5pdqucm9=dsj4m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+# SECURE_SSL_REDIRECT = True
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -57,6 +61,7 @@ INSTALLED_APPS = [
     # 'rest_auth',
 
     'corsheaders',
+    'storages'
 
     'accounts',
     'projects'
@@ -93,16 +98,51 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'portfolio_backend.wsgi.application'
 
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'filename': '/var/log/app-logs/django.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'portfolio',
+            'USER': 'portfolio',
+            'PASSWORD': 'portfolio',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation
@@ -142,6 +182,12 @@ CORS_ALLOWED_ORIGINS = ['http://localhost:8080']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+if 'AWS_ACCESS_KEY_ID' in os.environ:
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+    AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
 
 STATIC_URL = '/static/'
 
