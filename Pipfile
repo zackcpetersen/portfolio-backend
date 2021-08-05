@@ -10,7 +10,7 @@ django = "*"
 pillow = "*"
 django-storages = "*"
 boto3 = "*"
-psycopg2 = "*"
+psycopg2-binary = "*"
 ipython = "*"
 django-cors-headers = "*"
 
