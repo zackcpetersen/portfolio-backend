@@ -8,6 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         if not User.objects.filter(email='zackcpetersen@gmail.com').first():
-            User.objects.create_superuser('zackcpetersen@gmail.com', 'Zack', 'Petersen', 'admin')
+            User.objects.create_superuser(
+                email='zackcpetersen@gmail.com', first_name='Zack', last_name='Petersen', password='admin')
             self.stdout.write(self.style.SUCCESS(
                 'Successfully created superuser for zackcpetersen@gmail.com'))
