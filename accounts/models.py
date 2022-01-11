@@ -16,6 +16,9 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
+    def create_superuser(self, **kwargs):
+        return self.create_user(**kwargs)
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
@@ -40,7 +43,23 @@ class User(AbstractBaseUser, PermissionsMixin):
         return '{} {}'.format(self.first_name, self.last_name)
 
 
+class ContactRequest(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    message = models.CharField(max_length=10000)
+
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.email)
+
+
 class SocialLink(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name='social_links')
+    name = models.CharField(max_length=255)
     link = models.URLField()
-    icon = models.URLField()
+    icon = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
