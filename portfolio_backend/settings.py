@@ -123,11 +123,11 @@ DATABASES = {
     # See .env.dev to see these values
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('SQL_DATABASE', 'portfolio'),
-        'USER': os.environ.get('SQL_USER', 'portfolio'),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', 'portfolio'),
-        'HOST': os.environ.get('SQL_HOST', 'localhost'),
-        'PORT': os.environ.get('SQL_PORT', '5432')
+        'NAME': os.environ.get('DB_NAME', 'portfolio'),
+        'USER': os.environ.get('DB_USERNAME', 'portfolio'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'portfolio'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432')
     }
 }
 
@@ -178,7 +178,7 @@ if 'AWS_ACCESS_KEY_ID' in os.environ:
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
