@@ -1,0 +1,6 @@
+static
+media
+.gitignore
+Pipfile.lock
+.ebextensions
+.elasticbeanstalk

@@ -18,9 +18,9 @@ ENV PYTHONUNBUFFERED 1
 
 # lint
 RUN pip install --upgrade pip
-RUN pip install flake8==3.9.2
-COPY . .
-RUN flake8 --ignore=E501,F401 .
+#RUN pip install flake8==3.9.2
+#COPY . .
+#RUN flake8 --ignore=E501,F401 .
 
 # install dependencies
 COPY ./requirements.txt .
@@ -32,7 +32,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requir
 #########
 
 # pull official base image
-FROM python:3.9
+FROM python:3.9-slim-buster
 
 # create directory for the app user
 RUN mkdir -p /home/app
@@ -43,7 +43,6 @@ RUN addgroup --system app \
     && adduser app app
 
 # create the appropriate directories
-ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
 RUN mkdir $APP_HOME \
     && mkdir $APP_HOME/static \
@@ -55,12 +54,8 @@ WORKDIR $APP_HOME
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*
-RUN apt-get update \
-    && apt-get -y dist-upgrade \
-    && apt install -y netcat
 
-COPY ./entrypoint.sh .
-#RUN sed -i 's/\r$//g'  $APP_HOME/entrypoint.prod.sh
+COPY ./docker/prod/entrypoint.sh .
 RUN chmod +x  $APP_HOME/entrypoint.sh
 
 # copy project
