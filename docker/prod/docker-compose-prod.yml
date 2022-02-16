@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-#    image: zackcpetersen/portfolio_backend:latest
+#    image: 776551661367.dkr.ecr.us-west-2.amazonaws.com/portfolio:latest
     build:
       context: ../../  # root of current project - context for Dockerfile
       dockerfile: ./docker/prod/Dockerfile
@@ -10,15 +10,15 @@ services:
 #      - ../../:/usr/src/app
     expose:
       - 8000
-    ports:
-      - '8000:8000'
+#    ports:
+#      - '8000:8000'
     env_file:
       - ./prod.env
     depends_on:
       - db
 
   db:
-    image: postgres:12.0-alpine
+    image: postgres:13.4-alpine
     expose:
       - 5432
     volumes:
@@ -29,7 +29,7 @@ services:
       - POSTGRES_DB=portfolio
 
   nginx:
-#    image: zackcpetersen/portfolio_nginx:latest
+#    image: 776551661367.dkr.ecr.us-west-2.amazonaws.com/portfolio_nginx:latest
     build:
       context: ../../
       dockerfile: ./docker/prod/nginx/Dockerfile

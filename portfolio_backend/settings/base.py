@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     # 'rest_auth',
 
     'corsheaders',
-    # 'storages'
+    'storages',
 
     'accounts',
     'projects'
