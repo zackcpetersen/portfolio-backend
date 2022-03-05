@@ -6,7 +6,7 @@ from accounts.models import ContactRequest, SocialLink, User
 class ContactRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactRequest
-        exclude = ['id', 'user']
+        exclude = ['id']
 
 
 class SocialLinkSerializer(serializers.ModelSerializer):

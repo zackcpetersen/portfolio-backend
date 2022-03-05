@@ -28,7 +28,7 @@ class ProjectTagSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     images = ProjectImageSerializer(many=True)
-    descriptions = ProjectDescriptionSerializer(many=True)
+    descriptions = serializers.SerializerMethodField()
     tags = ProjectTagSerializer(many=True)
     all_tags = serializers.SerializerMethodField()
 
@@ -36,6 +36,9 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = ['id', 'name', 'user', 'source', 'live_url',
                   'images', 'descriptions', 'tags', 'all_tags']
+
+    def get_descriptions(self, project):
+        return ProjectDescriptionSerializer(project.descriptions.order_by('order'), many=True).data
 
     def get_all_tags(self, project):
         return project.tags.values_list('tag__name', flat=True)

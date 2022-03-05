@@ -21,14 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY')
+
+SECRET_KEY = 'django-insecure-qu%td#7vb6&_cz3mesy(xzf3dlp7(_ucavlx5pdqucm9=dsj4m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
-
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '127.0.0.1').split(" ")
-# SECURE_SSL_REDIRECT = True
+DEBUG = False
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -59,7 +56,7 @@ INSTALLED_APPS = [
     # 'rest_auth',
 
     'corsheaders',
-    # 'storages'
+    'storages',
 
     'accounts',
     'projects'
@@ -123,14 +120,13 @@ DATABASES = {
     # See .env.dev to see these values
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('SQL_DATABASE', 'portfolio'),
-        'USER': os.environ.get('SQL_USER', 'portfolio'),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', 'portfolio'),
-        'HOST': os.environ.get('SQL_HOST', 'localhost'),
-        'PORT': os.environ.get('SQL_PORT', '5432'),
+        'NAME': 'portfolio',
+        'USER': 'portfolio',
+        'PASSWORD': 'portfolio',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -164,28 +160,21 @@ USE_L10N = True
 
 USE_TZ = True
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:8080']
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-if 'AWS_ACCESS_KEY_ID' in os.environ:
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-    AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
+# if 'AWS_ACCESS_KEY_ID' in os.environ:
+#     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+#     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+#     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+#     AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
 
-STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '../..')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
