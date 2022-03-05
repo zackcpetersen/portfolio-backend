@@ -38,7 +38,7 @@ class ProjectDescription(models.Model):
         ]
 
     def __str__(self):
-        return '{} - {}'.format(self.project, self.info[:75])
+        return f'{self.project} - {self.title} - {self.order}'
 
 
 class Tag(models.Model):
@@ -55,4 +55,4 @@ class ProjectTag(models.Model):
     description = models.CharField(max_length=2000)
 
     def __str__(self):
-        return '{} - {}'.format(self.tag.name, self.project)
+        return f'{self.tag.name} - {self.project}'

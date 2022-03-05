@@ -40,7 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=True)
 
     def __str__(self):
-        return '{} {}'.format(self.first_name, self.last_name)
+        return f'{self.first_name} {self.last_name}'
 
 
 class ContactRequest(models.Model):
@@ -50,7 +50,7 @@ class ContactRequest(models.Model):
     message = models.CharField(max_length=10000)
 
     def __str__(self):
-        return '{} - {}'.format(self.name, self.email)
+        return f'{self.name} - {self.email}'
 
 
 class SocialLink(models.Model):
