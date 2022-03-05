@@ -27,9 +27,15 @@ class ProjectImage(models.Model):
 class ProjectDescription(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
                                 related_name='descriptions')
-    title = models.CharField(max_length=50, unique=True)
+    title = models.CharField(max_length=255)
     info = models.CharField(max_length=10000)
-    order = models.PositiveSmallIntegerField(unique=True)
+    order = models.PositiveSmallIntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['project', 'title'], name='Project/Title Unique'),
+            models.UniqueConstraint(fields=['project', 'order'], name='Project/Order Unique')
+        ]
 
     def __str__(self):
         return '{} - {}'.format(self.project, self.info[:75])
@@ -46,7 +52,7 @@ class ProjectTag(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
                                 related_name='tags')
     tag = models.ForeignKey(Tag, on_delete=models.PROTECT)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=2000)
 
     def __str__(self):
         return '{} - {}'.format(self.tag.name, self.project)

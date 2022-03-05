@@ -59,7 +59,8 @@ class SocialLink(models.Model):
                              related_name='social_links')
     name = models.CharField(max_length=255)
     link = models.URLField()
-    icon = models.CharField(max_length=255)
+    icon = models.CharField(max_length=255, help_text='Use material design icons prepended with "mdi-", '
+                                                      'see full list at https://materialdesignicons.com/')
 
     def __str__(self):
         return self.name
