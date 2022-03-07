@@ -54,5 +54,10 @@ class ProjectTag(models.Model):
     tag = models.ForeignKey(Tag, on_delete=models.PROTECT)
     description = models.CharField(max_length=2000)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['project', 'tag'], name='Project Tag Unique')
+        ]
+
     def __str__(self):
         return f'{self.tag.name} - {self.project}'
