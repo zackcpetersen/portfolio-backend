@@ -8,6 +8,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255, unique=True)
     source = models.URLField(blank=True, null=True)
     live_url = models.URLField(blank=True, null=True)
+    order = models.PositiveSmallIntegerField(default=0)
     # slug for url? autogenerate - UNIQUE
 
     def __str__(self):
