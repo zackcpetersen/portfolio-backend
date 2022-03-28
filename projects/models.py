@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 from accounts.models import User
 
@@ -9,10 +10,16 @@ class Project(models.Model):
     source = models.URLField(blank=True, null=True)
     live_url = models.URLField(blank=True, null=True)
     order = models.PositiveSmallIntegerField(default=0)
-    # slug for url? autogenerate - UNIQUE
+    description = models.CharField(max_length=999999)
+    slug = models.SlugField(editable=False, unique=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Project, self).save(*args, **kwargs)
 
 
 class ProjectImage(models.Model):
@@ -21,25 +28,7 @@ class ProjectImage(models.Model):
     project = models.ForeignKey(Project, on_delete=models.PROTECT,
                                 related_name='images')
     image = models.ImageField(upload_to='project-images')
-    created_at = models.DateTimeField(auto_now_add=True)
     featured = models.BooleanField(default=False)
-
-
-class ProjectDescription(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE,
-                                related_name='descriptions')
-    title = models.CharField(max_length=255)
-    info = models.CharField(max_length=10000)
-    order = models.PositiveSmallIntegerField()
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['project', 'title'], name='Project/Title Unique'),
-            models.UniqueConstraint(fields=['project', 'order'], name='Project/Order Unique')
-        ]
-
-    def __str__(self):
-        return f'{self.project} - {self.title} - {self.order}'
 
 
 class Tag(models.Model):
