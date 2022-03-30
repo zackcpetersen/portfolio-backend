@@ -10,6 +10,7 @@ class Presentation(models.Model):
     order = models.PositiveSmallIntegerField(default=99)
     image = models.ImageField(upload_to='presentation-images')
     slug = models.SlugField(editable=False, unique=True)
+    description = models.CharField(max_length=2048)
 
     def __str__(self):
         return f'{self.name}'

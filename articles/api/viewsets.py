@@ -7,6 +7,7 @@ from articles.models import Article, ArticleImage
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    lookup_field = 'slug'
 
 
 class ArticleImageViewSet(viewsets.ModelViewSet):
