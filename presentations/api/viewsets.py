@@ -7,3 +7,4 @@ from presentations.models import Presentation
 class PresentationViewSet(viewsets.ModelViewSet):
     queryset = Presentation.objects.all()
     serializer_class = PresentationSerializer
+    lookup_field = 'slug'
