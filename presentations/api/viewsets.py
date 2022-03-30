@@ -1,4 +1,4 @@
-from rest_framework import mixins, viewsets
+from rest_framework import viewsets
 
 from presentations.api.serializers import PresentationSerializer
 from presentations.models import Presentation

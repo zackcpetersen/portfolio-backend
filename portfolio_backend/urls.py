@@ -20,11 +20,13 @@ from django.urls import include, path
 from rest_framework import routers
 
 from accounts.api.urls import router as accounts_router
+from articles.api.urls import router as articles_router
 from presentations.api.urls import router as presentations_router
 from projects.api.urls import router as projects_router
 
 router = routers.DefaultRouter()
 router.registry.extend(accounts_router.registry)
+router.registry.extend(articles_router.registry)
 router.registry.extend(presentations_router.registry)
 router.registry.extend(projects_router.registry)
 
