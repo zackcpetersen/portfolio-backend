@@ -28,6 +28,10 @@ CORS_ORIGIN_ALLOW_ALL = eval(get_env_variable('CORS_ORIGIN_ALLOW_ALL'))
 CORS_ORIGIN_WHITELIST = get_env_variable('CORS_ORIGIN_WHITELIST').split(" ")
 SECURE_SSL_REDIRECT = eval(get_env_variable('SECURE_SSL_REDIRECT'))
 
+# Automatic User Creation
+DJANGO_SUPERUSER_EMAIL = get_env_variable('DJANGO_SUPERUSER_EMAIL')
+DJANGO_SUPERUSER_PASSWORD = get_env_variable('DJANGO_SUPERUSER_PASSWORD')
+
 # Database settings
 DATABASES = {
     'default': {

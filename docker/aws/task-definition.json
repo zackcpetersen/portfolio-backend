@@ -97,6 +97,14 @@
                 {
                     "valueFrom": "arn:aws:ssm:us-west-2:776551661367:parameter/portfolio/AWS_SECRET_ACCESS_KEY",
                     "name": "AWS_SECRET_ACCESS_KEY"
+                },
+                {
+                    "valueFrom": "arn:aws:ssm:us-west-2:776551661367:parameter/portfolio/DJANGO_SUPERUSER_PASSWORD",
+                    "name": "DJANGO_SUPERUSER_PASSWORD"
+                },
+                {
+                    "valueFrom": "arn:aws:ssm:us-west-2:776551661367:parameter/portfolio/DJANGO_SUPERUSER_EMAIL",
+                    "name": "DJANGO_SUPERUSER_EMAIL"
                 }
             ],
             "memoryReservation": 512,

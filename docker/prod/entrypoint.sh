@@ -5,7 +5,7 @@ python manage.py migrate
 python manage.py collectstatic --noinput
 
 # Uncomment below to create a new user
-python manage.py createsuperuser --first_name Zack --last_name Petersen --email zack@gmail.com --noinput
+python manage.py createsuperuser --first_name Zack --last_name Petersen --noinput
 
 # Start gunicorn server at port 8000
 # To watch for code changes, pass the --reload flag to the command
