@@ -10,7 +10,7 @@ class ArticleImageSerializer(serializers.ModelSerializer):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-    images = ArticleImageSerializer(many=True)
+    images = ArticleImageSerializer(many=True, read_only=True, required=False)
 
     class Meta:
         model = Article
