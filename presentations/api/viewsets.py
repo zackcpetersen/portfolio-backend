@@ -5,6 +5,6 @@ from presentations.models import Presentation
 
 
 class PresentationViewSet(viewsets.ModelViewSet):
-    queryset = Presentation.objects.all()
+    queryset = Presentation.objects.all().order_by('order')
     serializer_class = PresentationSerializer
     lookup_field = 'slug'
