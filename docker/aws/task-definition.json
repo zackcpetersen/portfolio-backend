@@ -33,11 +33,11 @@
                 },
                 {
                     "name": "CORS_ORIGIN_WHITELIST",
-                    "value": "http://zackcpetersen.com"
+                    "value": "https://zackcpetersen.com"
                 },
                 {
                     "name": "SECURE_SSL_REDIRECT",
-                    "value": "False"
+                    "value": "True"
                 },
                 {
                     "name": "CORS_ORIGIN_ALLOW_ALL",
