@@ -1,0 +1,67 @@
+name: Build Portfolio Images and Deploy to Production ECS
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+    # this allows the workflow to be run manually
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+
+jobs:
+  deploy:
+    name: Build Images to ECR & Deploy to ECS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: API - Build, Tag, and Push Image to Amazon ECR
+        id: build-image-api
+        env:
+          ECR_REGISTRY: 776551661367.dkr.ecr.us-west-2.amazonaws.com
+          API_REPOSITORY: portfolio
+          LATEST_TAG: latest
+          IMAGE_SHA: ${{ github.sha }}
+        run: |
+          docker build . -f ./docker/prod/Dockerfile \
+            --tag $ECR_REGISTRY/$API_REPOSITORY:$LATEST_TAG \
+            --tag $ECR_REGISTRY/$API_REPOSITORY:$IMAGE_SHA
+          docker push $ECR_REGISTRY/$API_REPOSITORY -a
+          echo "::set-output name=image::$ECR_REGISTRY/$API_REPOSITORY:$IMAGE_SHA"
+
+      - name: PRODUCTION/API - Fill New Image ID for Task Definition
+        id: task-def-api
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: docker/aws/task-definition.json
+          container-name: portfolio_api
+          image: ${{ steps.build-image-api.outputs.image }}
+
+      - name: API - Deploy Amazon ECS Task Definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-api.outputs.task-definition }}
+          service: portfolio_api
+          cluster: portfolio-backend
+          wait-for-service-stability: true
